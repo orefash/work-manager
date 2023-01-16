@@ -1,19 +1,19 @@
+"use strict";
 
-let testUser = {
-    fullName: 'John Doe',
-    email: 'john@mail.com',
-    password: 'password'
-}
 module.exports = {
     worker: () => {
         return {
-            ...testUser,
+            fullName: 'John Doe',
+            email: 'john@mail.com',
+            password: 'password',
             role: 'WORKER'
         }
     },
     admin: () => {
         return {
-            ...testUser,
+            fullName: 'Jane Doe',
+            email: 'jane@mail.com',
+            password: 'password',
             role: 'ADMIN'
         }
     }

@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 let mongoose = require("mongoose");
@@ -34,7 +34,6 @@ const jwtExpiry = process.env.JWT_EXPIRY;
 userSchema.methods.generateJWT = function () {
     const token = jwt.sign(
         {
-
             id: this._id,
             email: this.email,
             iat: Math.floor(Date.now() / 1000),

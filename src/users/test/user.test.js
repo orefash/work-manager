@@ -1,5 +1,4 @@
 "use strict";
-const mongoose = require("mongoose");
 const { User } = require("../index");
 const db = require("../../tests/db");
 const { worker, admin } = require("./stubs/user.stub")
@@ -34,6 +33,16 @@ describe("User model", () => {
     await expect(invalidUser.registerUser(invalidUser)).rejects.toThrow()
   });
 
- 
+
+  it("should throw exception for duplicate email", async () => {
+    const validUser = new User(worker());
+    await validUser.registerUser(validUser);
+
+
+    const validUser2 = new User(worker());
+
+    await expect(validUser2.registerUser(validUser2)).rejects.toThrow()
+  });
+
 
 })
