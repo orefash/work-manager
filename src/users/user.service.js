@@ -1,12 +1,12 @@
 "use strict";
 
 const getUsers = (User) => async (filter = {}) => {
-    let users = await User.find(filter);
+    let users = await User.find(filter, { password:0 });
     return users
 }
 
 const getUser = (User) => async (filter = {}) => {
-    let user = await User.findOne(filter)
+    let user = await User.findOne(filter, { password:0 })
     return user;
 }
 
@@ -27,7 +27,7 @@ const deleteUser = (User) => async (id) => {
 
     if (!user) throw new Error('Invalid !!')
 
-    return user;
+    return true;
 }
 
 

@@ -88,7 +88,7 @@ describe("User Service", () => {
 
             const deleted = await userService.deleteUser(workerId);
 
-            expect(deleted).not.toBeNull();
+            expect(deleted).toBeTruthy();
         })
         it("throws exception if id is invalid", async () => {
 
