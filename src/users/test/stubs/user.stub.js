@@ -1,6 +1,8 @@
 "use strict";
 
 module.exports = {
+    workerId: "worker1",
+    adminId: "admin1",
     worker: () => {
         return {
             fullName: 'John Doe',

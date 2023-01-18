@@ -17,8 +17,7 @@ function userRoutes(userService) {
                 });
 
         } catch (error) {
-            console.log("error: ", error.message)
-            res.status(500)
+            res.status(400)
                 .json({
                     success: false,
                     message: error.message
@@ -29,18 +28,59 @@ function userRoutes(userService) {
     router.get("/:id", async (req, res) => {
         try {
             let id = req.params.id;
-            let filter = {_id: id};
+            let filter = { _id: id };
 
-            const users = await userService.getUser(filter);
+            const user = await userService.getUser(filter);
             res.status(200)
                 .json({
                     success: true,
-                    users
+                    user: user
                 });
 
         } catch (error) {
-            console.log("error: ", error.message)
-            res.status(500)
+            res.status(400)
+                .json({
+                    success: false,
+                    message: error.message
+                });
+        }
+    });
+
+    router.patch("/:id", async (req, res) => {
+        try {
+            let id = req.params.id;
+            let updateQuery = req.body;
+
+            const user = await userService.updateUser(id, updateQuery);
+            res.status(200)
+                .json({
+                    success: true,
+                    user: user
+                });
+
+        } catch (error) {
+            res.status(400)
+                .json({
+                    success: false,
+                    message: error.message
+                });
+        }
+    });
+
+
+    router.delete("/:id", async (req, res) => {
+        try {
+            let id = req.params.id;
+
+            const deleted = await userService.deleteUser(id);
+            res.status(200)
+                .json({
+                    success: true,
+                    deleted: deleted
+                });
+
+        } catch (error) {
+            res.status(400)
                 .json({
                     success: false,
                     message: error.message
