@@ -20,7 +20,6 @@ const getUsers = async (req, res) => {
             message: error.message
         });
     }
-
 }
 
 function userRoutes(userService) {

@@ -20,6 +20,7 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: "WORKER",
+        index: true,
         required: [true, "user role is required"],
         enum: ["ADMIN", "WORKER"],
     },
