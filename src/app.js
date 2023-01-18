@@ -5,21 +5,16 @@ const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-// const cookieParser = require("cookie-parser");
 const passport = require("passport");
+
+const { UserController } = require("./users");
 
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(cookieParser());
 
-var whitelist = []
-
-app.use(cors({
-    origin: whitelist, // (Whatever your frontend url is) 
-    credentials: true, // <= Accept credentials (cookies) sent by the client
-}))
+app.use(cors())
 
 const serverStatus = () => {
     return {
@@ -33,5 +28,8 @@ app.get("/api/uptime", (req, res) => {
         serverStatus()
     );
 });
+
+
+app.use("/api/users", UserController);
 
 module.exports = app;

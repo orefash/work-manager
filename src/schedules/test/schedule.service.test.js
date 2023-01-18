@@ -13,6 +13,8 @@ describe("Schedule Service", () => {
     let validData1 = validScheduleData();
     let validData2 = validScheduleData2();
 
+    const getUser = jest.fn();
+
     beforeAll(async () => {
         await db.setUp();
         const getUser = jest.fn();
@@ -47,6 +49,7 @@ describe("Schedule Service", () => {
         it("saves a new valid Schedule and returns the details", async () => {
             let schedule = await scheduleService.saveSchedule(validData1);
 
+            expect(userService.getUser).toBeCalled();
             expect(schedule).toBeDefined();
             expect(schedule.shift).toEqual(validData1.shift);
             expect(schedule.worker).toEqual(validData1.worker);
@@ -71,7 +74,6 @@ describe("Schedule Service", () => {
             await scheduleService.saveSchedule(scheduleData2);
 
             let schedules = await scheduleService.getSchedules();
-            // console.log('schedules: ', schedules)
 
             expect(schedules).toBeDefined();
             expect(schedules.length).toEqual(2);
