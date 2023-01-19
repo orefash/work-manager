@@ -50,7 +50,7 @@ describe("Schedule Controller - /api/schedules", () => {
             expect(res.body.success).toBeFalsy();
 
         })
-    })
+    });
 
     describe("GET /api/schedules/:id", () => {
         it("returns a saved schedule by ID with 200 status", async () => {
