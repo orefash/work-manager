@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 const { UserController } = require("./users");
+const { ScheduleController } = require('./schedules');
 
 app.use(passport.initialize());
 app.use(bodyParser.json());
@@ -31,5 +32,6 @@ app.get("/api/uptime", (req, res) => {
 
 
 app.use("/api/users", UserController);
+app.use("/api/schedules", ScheduleController);
 
 module.exports = app;

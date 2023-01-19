@@ -1,6 +1,5 @@
 "use strict";
 const shifts = require('../shifts');
-const { worker } = require('../users/test/stubs/user.stub');
 
 const saveSchedule = (Schedule, userService) => async (scheduleData) => {
 
@@ -40,6 +39,9 @@ const getSchedules = (Schedule) => async (filter = {}) => {
 
 const getScheduleById = (Schedule) => async (id) => {
     let schedule = await Schedule.findOne({_id: id})
+
+    if(!schedule) throw Error('Invalid Schedule Id');
+    
     return schedule;
 }
 

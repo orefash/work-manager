@@ -13,8 +13,6 @@ describe("Schedule Service", () => {
     let validData1 = validScheduleData();
     let validData2 = validScheduleData2();
 
-    const getUser = jest.fn();
-
     beforeAll(async () => {
         await db.setUp();
         const getUser = jest.fn();
@@ -52,7 +50,7 @@ describe("Schedule Service", () => {
             expect(userService.getUser).toBeCalled();
             expect(schedule).toBeDefined();
             expect(schedule.shift).toEqual(validData1.shift);
-            expect(schedule.worker).toEqual(validData1.worker);
+            expect(JSON.stringify(schedule.worker)).toEqual(JSON.stringify(validData1.worker));
         });
         it("should throw an exception if an invalid user ID is passed", async () => {
             await expect( scheduleService.saveSchedule(invalidIdScheduleData())).rejects.toThrow("Invalid Worker ID");
@@ -109,13 +107,12 @@ describe("Schedule Service", () => {
             let schedule = await scheduleService.getScheduleById(savedSchedule._id);
 
             expect(schedule).toBeDefined();
-            expect(schedule.worker).toEqual(validData1.worker);
+            expect(JSON.stringify(schedule.worker)).toEqual(JSON.stringify(validData1.worker));
         })
         it("returns a saved schedule by Id", async () => {
 
-            let schedule = await scheduleService.getScheduleById(validData1.worker);
+            await expect(scheduleService.getScheduleById(validData1.worker)).rejects.toThrow('Invalid Schedule Id');
 
-            expect(schedule).toBeNull();
         })
     })
 

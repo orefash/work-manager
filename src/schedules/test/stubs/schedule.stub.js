@@ -2,7 +2,7 @@
 const ObjectID = require('mongodb').ObjectID;
 const shifts = require('../../../shifts');
 
-const validUserId = new ObjectID();
+const validUserId = "63c8e9dea08a3244b63e9d0b";
 const invalidId = "invalid";
 
 let baseData = {
@@ -12,10 +12,11 @@ let baseData = {
 }
 
 module.exports = {
+    validUserId: validUserId,
     validScheduleData: () => {
         return {
             ...baseData,
-            worker: new ObjectID()
+            worker: "63c8e9dea08a3244b63e9d05"
         }
     },
     validScheduleData2: () => {
