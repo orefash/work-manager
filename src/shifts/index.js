@@ -1,4 +1,5 @@
 "use strict";
+const ShiftController = require('./shift.controller');
 
 const shifts = () => {
     return {
@@ -20,4 +21,7 @@ const shifts = () => {
     }
 }
 
-module.exports = shifts;
+module.exports = {
+    shifts: shifts,
+    ShiftController: ShiftController.shiftRoutes(shifts)
+};

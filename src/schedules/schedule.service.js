@@ -1,5 +1,5 @@
 "use strict";
-const shifts = require('../shifts');
+const { shifts } = require('../shifts');
 
 const saveSchedule = (Schedule, userService) => async (scheduleData) => {
 
@@ -41,7 +41,7 @@ const getScheduleById = (Schedule) => async (id) => {
     let schedule = await Schedule.findOne({_id: id})
 
     if(!schedule) throw Error('Invalid Schedule Id');
-    
+
     return schedule;
 }
 

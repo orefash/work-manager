@@ -9,6 +9,7 @@ const passport = require("passport");
 
 const { UserController } = require("./users");
 const { ScheduleController } = require('./schedules');
+const { ShiftController } = require('./shifts');
 
 app.use(passport.initialize());
 app.use(bodyParser.json());
@@ -33,5 +34,6 @@ app.get("/api/uptime", (req, res) => {
 
 app.use("/api/users", UserController);
 app.use("/api/schedules", ScheduleController);
+app.use("/api/shifts", ShiftController);
 
 module.exports = app;

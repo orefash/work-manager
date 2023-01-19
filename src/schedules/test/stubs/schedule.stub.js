@@ -1,6 +1,5 @@
 "use strict";
-const ObjectID = require('mongodb').ObjectID;
-const shifts = require('../../../shifts');
+const { shifts } = require('../../../shifts');
 
 const validUserId = "63c8e9dea08a3244b63e9d0b";
 const invalidId = "invalid";
