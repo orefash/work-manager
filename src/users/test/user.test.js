@@ -19,7 +19,7 @@ describe("User model", () => {
   it("registers a valid user successfully", async () => {
     const validUser = new User(worker());
     const savedUser = await validUser.registerUser(validUser);
-
+    
     expect(savedUser._id).toBeDefined();
     expect(savedUser.email).toBe(worker().email);
     expect(savedUser.password).toBeDefined();

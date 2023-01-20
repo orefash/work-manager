@@ -60,7 +60,14 @@ describe("User Service", () => {
             expect(worker).toBeDefined();
             expect(worker.role).toEqual('WORKER');
         })
+        it("throws exception if id is invalid", async () => {
 
+            var ObjectID = require('mongodb').ObjectID;
+
+            var objectId = new ObjectID();
+
+            await expect(userService.getUser({ _id: objectId })).rejects.toThrow('Invalid User!!');
+        })
     })
 
     describe("Update User", () => {

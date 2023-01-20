@@ -24,43 +24,30 @@ const userSchema = new Schema({
         required: [true, "user role is required"],
         enum: ["ADMIN", "WORKER"],
     },
-    password: String
+    password: {
+        type: String,
+        required: [true, "password required"]
+    }
 },
-{ timestamps: true });
+    { timestamps: true });
 
 
-const secretOrKey = process.env.JWT_SECRET;
-const jwtExpiry = process.env.JWT_EXPIRY;
-
-userSchema.methods.generateJWT = function () {
-    const token = jwt.sign(
-        {
-            id: this._id,
-            email: this.email,
-            iat: Math.floor(Date.now() / 1000),
-        },
-        secretOrKey,
-        {
-            expiresIn: jwtExpiry
-        }
-    );
-    return token;
-};
 
 userSchema.methods.registerUser = async (newUser) => {
-    try{
+    try {
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(newUser.password, salt);
         newUser.password = passwordHash;
         return newUser.save();
-    }catch(err){
+    } catch (err) {
         throw new Error('Register Error: ', err.message)
     }
 };
 
-userSchema.methods.comparePassword = async (candidatePassword) => {
-    return await bcrypt.compare(candidatePassword, this.password) 
-};
-
+userSchema.methods.toJSON = function () {
+    var obj = this.toObject(); 
+    delete obj.password;
+    return obj;
+}
 
 module.exports = mongoose.model("user", userSchema, "user");

@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const { UserController } = require("./users");
+const { UserController, AuthController } = require("./users");
 const { ScheduleController } = require('./schedules');
 const { ShiftController } = require('./shifts');
 
@@ -32,6 +32,7 @@ app.get("/api/uptime", (req, res) => {
 });
 
 
+app.use("/api/auth", AuthController);
 app.use("/api/users", UserController);
 app.use("/api/schedules", ScheduleController);
 app.use("/api/shifts", ShiftController);

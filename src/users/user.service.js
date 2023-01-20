@@ -7,6 +7,9 @@ const getUsers = (User) => async (filter = {}) => {
 
 const getUser = (User) => async (filter = {}) => {
     let user = await User.findOne(filter, { password:0 })
+
+    if (!user) throw new Error('Invalid User!!')
+
     return user;
 }
 

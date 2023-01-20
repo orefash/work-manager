@@ -10,7 +10,9 @@ module.exports.setUp = async () => {
 
     await mongoose.connect(url, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
   });
 };
 
