@@ -35,7 +35,7 @@ const loginUser = (User) => async (loginData) => {
             {
                 id: checkUser._id,
                 email: checkUser.email,
-                iat: Math.floor(Date.now() / 1000),
+                role: checkUser.role
             },
             secretOrKey,
             {

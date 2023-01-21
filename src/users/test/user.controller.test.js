@@ -6,6 +6,14 @@ const UserController = require('../user.controller');
 const userService = require('./mocks/user.service');
 
 
+let { isAdmin, isLoggedIn } = require('../../middlewares/auth');
+
+jest.mock('../../middlewares/auth', () => ({
+    isLoggedIn: jest.fn((req, res, next) => next()),
+    isAdmin: jest.fn((req, res, next) => next()),
+}));
+
+
 describe("User Controller - /api/users", () => {
 
     const userController = UserController.userRoutes(userService);
@@ -29,6 +37,8 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).get("/api/users");
 
             expect(userService.getUsers).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -44,6 +54,8 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).get("/api/users");
 
             expect(userService.getUsers).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -57,6 +69,7 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).get("/api/users/" + workerId);
 
             expect(userService.getUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -72,6 +85,7 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).get("/api/users/" + workerId);
 
             expect(userService.getUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -80,13 +94,14 @@ describe("User Controller - /api/users", () => {
     })
 
     describe("PATCH /api/users/:id", () => {
-       
+
         it("updates a saved user by id; returns 200 status", async () => {
 
             const res = await request(app).
                 patch("/api/users/" + workerId).send(worker());
 
             expect(userService.updateUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -102,6 +117,7 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).patch("/api/users/" + workerId).send(worker());
 
             expect(userService.updateUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -110,13 +126,15 @@ describe("User Controller - /api/users", () => {
     })
 
     describe("DELETE /api/users/:id", () => {
-       
+
         it("delete a saved user by id; returns 200 status", async () => {
 
             const res = await request(app).
                 delete("/api/users/" + workerId);
 
             expect(userService.deleteUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -131,6 +149,8 @@ describe("User Controller - /api/users", () => {
             const res = await request(app).delete("/api/users/" + workerId);
 
             expect(userService.deleteUser).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();

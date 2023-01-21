@@ -5,6 +5,12 @@ const ScheduleController = require('../schedule.controller');
 const scheduleService = require('./mocks/schedule.service');
 const { validScheduleData2, validUserId } = require("./stubs/schedule.stub");
 
+let { isAdmin, isLoggedIn } = require('../../middlewares/auth');
+
+jest.mock('../../middlewares/auth', () => ({
+    isLoggedIn: jest.fn((req, res, next) => next()),
+    isAdmin: jest.fn((req, res, next) => next()),
+}));
 
 
 describe("Schedule Controller - /api/schedules", () => {
@@ -30,6 +36,7 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).get("/api/schedules");
 
             expect(scheduleService.getSchedules).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -45,6 +52,7 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).get("/api/schedules");
 
             expect(scheduleService.getSchedules).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -58,6 +66,7 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).get("/api/schedules/"+validUserId);
 
             expect(scheduleService.getScheduleById).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -73,6 +82,7 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).get("/api/schedules/"+validUserId);
 
             expect(scheduleService.getScheduleById).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -87,6 +97,8 @@ describe("Schedule Controller - /api/schedules", () => {
             .send(validScheduleData2());
 
             expect(scheduleService.updateSchedule).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -103,6 +115,8 @@ describe("Schedule Controller - /api/schedules", () => {
             .send(validScheduleData2());
 
             expect(scheduleService.updateSchedule).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();
@@ -117,6 +131,8 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).delete("/api/schedules/"+validUserId);
 
             expect(scheduleService.deleteSchedule).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(200);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeTruthy();
@@ -132,6 +148,8 @@ describe("Schedule Controller - /api/schedules", () => {
             const res = await request(app).delete("/api/schedules/"+validUserId);
 
             expect(scheduleService.deleteSchedule).toBeCalled();
+            expect(isLoggedIn).toBeCalled();
+            expect(isAdmin).toBeCalled();
             expect(res.status).toEqual(400);
             expect(res.body).toBeDefined();
             expect(res.body.success).toBeFalsy();

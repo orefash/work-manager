@@ -1,11 +1,11 @@
 "use strict";
 const express = require('express');
-
+const { isAdmin, isLoggedIn } = require('../middlewares/auth');
 
 function userRoutes(userService) {
     const router = express.Router();
 
-    router.get("/", async (req, res) => {
+    router.get("/", [isLoggedIn, isAdmin], async (req, res) => {
         try {
             let filter = req.query;
 
@@ -25,7 +25,7 @@ function userRoutes(userService) {
         }
     });
 
-    router.get("/:id", async (req, res) => {
+    router.get("/:id", isLoggedIn, async (req, res) => {
         try {
             let id = req.params.id;
             let filter = { _id: id };
@@ -46,7 +46,7 @@ function userRoutes(userService) {
         }
     });
 
-    router.patch("/:id", async (req, res) => {
+    router.patch("/:id", isLoggedIn, async (req, res) => {
         try {
             let id = req.params.id;
             let updateQuery = req.body;
@@ -68,7 +68,7 @@ function userRoutes(userService) {
     });
 
 
-    router.delete("/:id", async (req, res) => {
+    router.delete("/:id", [isLoggedIn, isAdmin], async (req, res) => {
         try {
             let id = req.params.id;
 
