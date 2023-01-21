@@ -93,7 +93,7 @@ describe("Auth  Middlewares", () => {
 
             mockedReq = {
                 headers: {
-                    'x-auth-token': "token"
+                    "x-auth-token": "token"
                 }
             }
 

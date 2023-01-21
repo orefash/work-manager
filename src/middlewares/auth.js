@@ -8,12 +8,12 @@ const isAdmin = (req, res, next) => {
 
     if (!user){
         res.statusCode = 500;
-        res.send("Invalid User");
+        return res.send("Invalid User");
     } 
 
     else if(!user.role || user.role !== "ADMIN"){
         res.statusCode = 403;
-        res.send("Unauthorized!!");
+        return res.send("Unauthorized!!");
     } 
 
     next();
@@ -25,19 +25,20 @@ const isLoggedIn = (req, res, next) => {
     try {
         if (!token) {
             res.statusCode = 401;
-            res.send("A token is required for authentication");
+            return res.send("A token is required for authentication");
         }else{
 
-        // console.log('in verify')
+        // console.log('in verify: ', token);
+        // console.log("sec: ", config.JWT_SECRET);
             const decoded = jwt.verify(token, config.JWT_SECRET);
 
             req.user = decoded;
         }
         
     } catch (err) {
-        // console.log('in catch')
+        console.log('in catch: ', err.message);
         res.statusCode = 401;
-        res.send("Invalid Token");
+        return res.send("Invalid Token");
     }
     next();
 };

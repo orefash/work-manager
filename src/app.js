@@ -5,13 +5,11 @@ const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const passport = require("passport");
 
 const { UserController, AuthController } = require("./users");
 const { ScheduleController } = require('./schedules');
 const { ShiftController } = require('./shifts');
 
-app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

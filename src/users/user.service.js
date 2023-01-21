@@ -28,7 +28,7 @@ const updateUser = (User) => async (id, updateData) => {
 const deleteUser = (User) => async (id) => {
     const user = await User.findByIdAndDelete(id)
 
-    if (!user) throw new Error('Invalid !!')
+    if (!user) throw new Error('Invalid User ID!!')
 
     return true;
 }
