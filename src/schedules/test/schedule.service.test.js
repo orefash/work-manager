@@ -127,6 +127,12 @@ describe("Schedule Service", () => {
             expect(updatedSchedule).not.toBeNull();
             expect(updatedSchedule.shift).toEqual(updateData.shift);
         })
+        it("update schdule details (shift / date) and return updated schedule", async () => {
+            let savedSchedule = await scheduleService.saveSchedule(validData1);
+            updateData.worker = "workerid";
+
+            await expect(scheduleService.updateSchedule(savedSchedule._id, updateData)).rejects.toThrow("Worker details can't be updated");
+        })
         it("throws exception if id is invalid", async () => {
 
             var ObjectID = require('mongodb').ObjectID;

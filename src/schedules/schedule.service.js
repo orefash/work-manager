@@ -47,6 +47,8 @@ const getScheduleById = (Schedule) => async (id) => {
 
 const updateSchedule = (Schedule) => async (id, updateData) => {
 
+    if(updateData.worker) throw new Error("Worker details can't be updated");
+
     const updatedSchedule = await Schedule.findByIdAndUpdate(id, updateData, {
         new: true,
     });

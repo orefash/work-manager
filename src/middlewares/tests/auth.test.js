@@ -1,7 +1,18 @@
 "use strict";
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+
+
 const { isAdmin, isLoggedIn } = require('../../middlewares/auth');
+
+
+jest.mock('jsonwebtoken', () => {
+    return {
+        verify: jest.fn(() => ({
+            user: "user"
+        }))
+    };
+});
 
 
 
@@ -80,14 +91,7 @@ describe("Auth  Middlewares", () => {
 
 
     describe("isLoggedIn", () => {
-
-        beforeEach(async () => {
-
-            jest.mock('jsonwebtoken', () => ({
-                verify: jest.fn((token, secret) => { })
-            }));
-
-        });
+       
 
         it("calls next() if token is valid", async () => {
 
@@ -100,6 +104,7 @@ describe("Auth  Middlewares", () => {
             const result = await isLoggedIn(mockedReq, mockedRes, mockedNext);
 
             expect(mockedNext).toBeCalledTimes(1);
+            expect(mockedReq.user).toBeDefined();
         });
         it("returns 401 status is token isnt defined", async () => {
 
