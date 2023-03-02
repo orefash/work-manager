@@ -1,5 +1,5 @@
 > ### Work Manager API for  Test Project
-This repo contains the codebase for my attempt at the Builder Test. 
+This repo contains the codebase for a simple attempt at a Worker Manager. It allows managers to assign 1out of 3 preset shifts to workers in a day.
 
 # Getting started
 
@@ -25,3 +25,8 @@ Alternately, to quickly try out this repo in the cloud, you can [Test it here](h
 
 The postman JSON link can be found [here](https://elements.getpostman.com/redirect?entityId=20674887-a166c149-fe26-4e43-ac54-3ca97a7845aa&entityType=collection)
 
+To authenticate Worker/Admin endpoints
+- Choose the prod environment from the environment dropdown
+- Create preferred user type via the Register Worker/ Register Admin endpoints
+- Login with worker/admin credentials via the Auth/Login user endpoint to generate a token
+- Replace current value in the prod environmnents token field with token string generated in last step
