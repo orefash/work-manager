@@ -1,5 +1,5 @@
-> ### Work Manager API for Teamway Builder Test Project
-This repo contains the codebase for my attempt at the Builder Test for Teamway. 
+> ### Work Manager API for  Test Project
+This repo contains the codebase for my attempt at the Builder Test. 
 
 # Getting started
 
