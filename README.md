@@ -1,5 +1,6 @@
 > ### Work Manager API for  Test Project
 This repo contains the codebase for a simple attempt at a Worker Manager. It allows managers to assign 1out of 3 preset shifts to workers in a day.
+Built with Nodejs, MongoDB, Express
 
 # Getting started
 
